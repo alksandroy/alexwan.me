@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The Alex Wan Cookbook — Business Intelligence Analyst</title>
+  <meta name="description" content="Alex Wan is a Business Intelligence Analyst at Crown Castle. USC '26 — Computer Science, Business, and Design. Served recipe-book style.">
+  <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+  <link rel="canonical" href="https://alexwan.me/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="The Alex Wan Cookbook">
+  <meta property="og:description" content="Business Intelligence Analyst at Crown Castle. USC ’26 — M.S. Integrated Design, Business and Technology; B.S. Computer Science and Business Administration.">
+  <meta property="og:url" content="https://alexwan.me/">
+  <meta property="og:image" content="https://alexwan.me/assets/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#FBF6EC">
+  <style>
+    :root {
+      --paper: #FBF6EC;
+      --card: #FFFDF7;
+      --ink: #3E2F23;
+      --warm: #8B5E3C;
+      --muted: #9A8570;
+      --rule: #D9CCB8;
+      --serif: Georgia, "Times New Roman", serif;
+      --sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--serif); background: var(--paper); color: var(--ink);
+      line-height: 1.6; -webkit-font-smoothing: antialiased;
+      cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 32 32'%3E%3Cg fill='none' stroke='%23161616' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 18 C23 8 12 -1 5 5 C-1 12 8 23 18 18 Z' fill='white'/%3E%3Cpath d='M18 18 C19 10 12 4 5 5 C4 12 10 19 18 18'/%3E%3Cpath d='M5 5 L18 18'/%3E%3Cline x1='20' y1='20' x2='28' y2='28' stroke-width='4.5'/%3E%3C/g%3E%3C/svg%3E") 5 5, auto;
+    }
+    /* paper grain overlay */
+    body::before {
+      content: ""; position: fixed; inset: 0; z-index: 2; pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+      opacity: 0.10; mix-blend-mode: multiply;
+    }
+    a, a:hover, button {
+      cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 32 32'%3E%3Cg fill='none' stroke='%23161616' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 18 C23 8 12 -1 5 5 C-1 12 8 23 18 18 Z' fill='white'/%3E%3Cpath d='M18 18 C19 10 12 4 5 5 C4 12 10 19 18 18'/%3E%3Cpath d='M5 5 L18 18'/%3E%3Cline x1='20' y1='20' x2='28' y2='28' stroke-width='4.5'/%3E%3C/g%3E%3C/svg%3E") 5 5, pointer;
+    }
+    a { color: var(--warm); }
+    img { display: block; max-width: 100%; }
+    .wrap { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+
+    /* Cover / masthead */
+    .cover { text-align: center; padding: 9vh 24px 6vh; border-bottom: 3px double var(--warm); }
+    .cover .kicker {
+      font-family: var(--sans); font-size: 0.7rem; text-transform: uppercase;
+      letter-spacing: 0.28em; color: var(--warm); margin-bottom: 18px;
+    }
+    .cover h1 { font-size: clamp(2.6rem, 8vw, 5rem); font-weight: 700; letter-spacing: -0.01em; line-height: 1.05; }
+    .cover .deck { font-style: italic; color: var(--muted); margin-top: 14px; font-size: 1.1rem; }
+    .cover .orn { color: var(--warm); margin-top: 22px; letter-spacing: 0.6em; }
+
+    nav.toc {
+      display: flex; justify-content: center; flex-wrap: wrap; gap: 10px 30px;
+      padding: 14px 0; border-bottom: 1px solid var(--rule);
+      font-family: var(--sans); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.18em;
+    }
+    nav.toc a { text-decoration: none; color: var(--ink); }
+    nav.toc a:hover { color: var(--warm); }
+
+    /* Today's special (news ticker) */
+    .special {
+      text-align: center; padding: 16px 24px; border-bottom: 1px solid var(--rule);
+      font-style: italic; font-size: 0.98rem;
+    }
+    .special b { font-style: normal; font-family: var(--sans); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.2em; color: var(--warm); margin-right: 12px; }
+
+    /* Pantry (who/where/what/other) */
+    .pantry { padding: 7vh 0 3vh; }
+    .pantry h2 {
+      text-align: center; font-size: 1.6rem; font-style: italic; margin-bottom: 8px;
+    }
+    .pantry .note { text-align: center; color: var(--muted); font-size: 0.9rem; margin-bottom: 34px; font-style: italic; }
+    .pantry-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0 48px; max-width: 720px; margin: 0 auto; }
+    .pantry-grid > div { padding: 14px 0; }
+    .p-row { display: flex; align-items: baseline; font-size: 1rem; }
+    .p-row .label { font-family: var(--sans); font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.16em; color: var(--warm); white-space: nowrap; }
+    .p-row .dots { flex: 1; border-bottom: 2px dotted var(--rule); margin: 0 10px; transform: translateY(-4px); }
+    .p-row .val { text-align: right; max-width: 60%; }
+
+    /* Courses (sections) */
+    section { padding: 6vh 0 2vh; }
+    .course-head { text-align: center; margin-bottom: 5vh; }
+    .course-head .no {
+      font-family: var(--sans); font-size: 0.68rem; text-transform: uppercase;
+      letter-spacing: 0.26em; color: var(--warm);
+    }
+    .course-head h2 { font-size: clamp(1.9rem, 5vw, 2.8rem); font-style: italic; margin-top: 6px; }
+    .course-head .orn { color: var(--warm); letter-spacing: 0.5em; margin-top: 10px; }
+
+    /* Recipe cards */
+    .card {
+      background: var(--card); border: 1px solid var(--rule); border-radius: 4px;
+      padding: 30px 34px; margin-bottom: 34px; position: relative;
+      box-shadow: 0 1px 0 var(--rule);
+    }
+    .card::before {
+      content: ""; position: absolute; inset: 7px;
+      border: 1px dashed var(--rule); border-radius: 2px; pointer-events: none;
+    }
+    .card-top { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px; }
+    .card .recipe-no {
+      font-family: var(--sans); font-size: 0.65rem; text-transform: uppercase;
+      letter-spacing: 0.2em; color: var(--muted);
+    }
+    .card h3 { font-size: 1.7rem; letter-spacing: -0.01em; }
+    .card h3 a { color: inherit; text-decoration: none; }
+    .card h3 a:hover { color: var(--warm); }
+    .card .sub { font-style: italic; color: var(--muted); margin-bottom: 18px; }
+    .card-body { display: grid; grid-template-columns: 84px 1fr; gap: 26px; align-items: start; }
+    .card-body img { width: 72px; height: 72px; border-radius: 8px; }
+    .r-meta { margin-bottom: 14px; }
+    .r-row { display: flex; align-items: baseline; font-size: 0.95rem; padding: 3px 0; }
+    .r-row .label { font-family: var(--sans); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.16em; color: var(--warm); white-space: nowrap; }
+    .r-row .dots { flex: 1; border-bottom: 2px dotted var(--rule); margin: 0 10px; transform: translateY(-4px); }
+    .r-row .val { text-align: right; }
+    .card .method { font-size: 0.98rem; max-width: 60ch; }
+    .card .method b { font-family: var(--sans); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.16em; color: var(--warm); display: block; margin-bottom: 4px; font-weight: 400; }
+    .card .taste {
+      display: inline-block; margin-top: 14px; font-family: var(--sans); font-size: 0.72rem;
+      text-transform: uppercase; letter-spacing: 0.16em; text-decoration: none;
+      border-bottom: 1px solid var(--warm); padding-bottom: 2px;
+    }
+
+    /* Culinary school */
+    .school { text-align: center; padding: 6vh 0; border-top: 1px solid var(--rule); }
+    .school .no { font-family: var(--sans); font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.26em; color: var(--warm); }
+    .school h2 { font-size: 1.8rem; font-style: italic; margin: 6px 0 10px; }
+    .school p { max-width: 52ch; margin: 0 auto 4px; }
+    .school .school-loc { font-style: italic; color: var(--muted); font-size: 0.9rem; margin-top: 8px; }
+
+    /* Footer */
+    footer { border-top: 3px double var(--warm); padding: 7vh 24px; text-align: center; }
+    footer .closing { font-style: italic; font-size: 1.5rem; margin-bottom: 20px; }
+    footer .links { display: flex; justify-content: center; gap: 30px; font-family: var(--sans); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.18em; }
+    footer .links a { text-decoration: none; border-bottom: 1px solid var(--warm); padding-bottom: 2px; }
+    footer .fine { margin-top: 40px; font-family: var(--sans); font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+
+    @media (max-width: 680px) {
+      .pantry-grid { grid-template-columns: 1fr; }
+      .card { padding: 24px 20px; }
+      .card-body { grid-template-columns: 1fr; gap: 14px; }
+      .card-body img { width: 56px; height: 56px; }
+    }
+
+    /* Mobile */
+    html { -webkit-text-size-adjust: 100%; }
+    body { overflow-wrap: break-word; }
+    .card .recipe-no { white-space: nowrap; }
+    .card-top { gap: 12px; }
+    .r-row .val { max-width: 68%; }
+    @media (max-width: 680px) {
+      .cover { padding: 6vh 20px 4vh; }
+      nav.toc { padding: 10px 16px; gap: 2px 20px; }
+      nav.toc a { padding: 6px 0; }
+      .special { padding: 14px 18px; }
+      .special b { display: block; margin: 0 0 4px; }
+      .wrap { padding: 0 16px; }
+      .card h3 { font-size: 1.35rem; }
+      .p-row .val { max-width: 66%; }
+      .card .taste { margin-right: 10px; }
+      footer .links { flex-wrap: wrap; gap: 12px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="cover">
+    <div class="kicker">From the kitchen of</div>
+    <h1>The Alex Wan<br>Cookbook</h1>
+    <p class="deck">Recipes for Business Intelligence — tested at Crown Castle, USC &amp; five kitchens before</p>
+    <div class="orn">✦ ✦ ✦</div>
+  </header>
+
+  <nav class="toc">
+    <a href="#pantry">The Pantry</a>
+    <a href="#work">Course I — Mains</a>
+    <a href="#leadership">Course II — Rises</a>
+    <a href="#projects">Course III — Bakes</a>
+    <a href="https://alexwan.super.site/" target="_blank" rel="noopener">Writing</a>
+    <a href="mailto:alex@alexwan.me">Contact</a>
+  </nav>
+
+  <div class="special"><b>Today’s Special</b>Business Intelligence Analyst @ Crown Castle · BIP Cohort 2026 · now serving Pittsburgh</div>
+
+  <div class="wrap">
+
+    <div class="pantry" id="pantry">
+      <h2>The Pantry</h2>
+      <p class="note">everything on hand, always stocked</p>
+      <div class="pantry-grid">
+        <div class="p-row"><span class="label">Who</span><span class="dots"></span><span class="val">Alex Wan</span></div>
+        <div class="p-row"><span class="label">Where</span><span class="dots"></span><span class="val">Pittsburgh</span></div>
+        <div class="p-row"><span class="label">What</span><span class="dots"></span><span class="val">Business Intelligence, Data, Strategy &amp; Consulting</span></div>
+        <div class="p-row"><span class="label">Other Things</span><span class="dots"></span><span class="val">Baker, Machinist, Deckhand Trainee &amp; Aspiring Captain</span></div>
+      </div>
+    </div>
+
+    <section id="work">
+      <div class="course-head">
+        <div class="no">Course I</div>
+        <h2>Mains — Work</h2>
+        <div class="orn">✦</div>
+      </div>
+
+      <article class="card">
+        <div class="card-top"><h3><a href="case-studies/crown-castle.html">Crown Castle</a></h3><span class="recipe-no">Recipe No. 01</span></div>
+        <div class="sub">a hearty Fortune 500 base, slow-built on shared infrastructure</div>
+        <div class="card-body">
+          <img src="assets/crown-castle.svg" alt="Crown Castle">
+          <div>
+            <div class="r-meta">
+              <div class="r-row"><span class="label">Role</span><span class="dots"></span><span class="val">Business Intelligence Analyst</span></div>
+              <div class="r-row"><span class="label">Season</span><span class="dots"></span><span class="val">2026 – Present</span></div>
+              <div class="r-row"><span class="label">Kitchen</span><span class="dots"></span><span class="val">Communications Infrastructure — BIP Cohort 2026</span></div>
+            </div>
+            <p class="method"><b>Method</b>A Fortune 500 shared communications infrastructure company. Working in the Business Intelligence Program at the intersection of data, analytics, and AI adoption. Best served fresh; improves with iteration.</p>
+            <a class="taste" href="case-studies/crown-castle.html">Full recipe →</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-top"><h3><a href="case-studies/swarm.html">SWARM Engineering</a></h3><span class="recipe-no">Recipe No. 02</span></div>
+        <div class="sub">agentic AI, reduced over an industrial summer</div>
+        <div class="card-body">
+          <img src="assets/swarm.svg" alt="SWARM Engineering">
+          <div>
+            <div class="r-meta">
+              <div class="r-row"><span class="label">Role</span><span class="dots"></span><span class="val">Developer Intern</span></div>
+              <div class="r-row"><span class="label">Season</span><span class="dots"></span><span class="val">Summer 2025</span></div>
+              <div class="r-row"><span class="label">Kitchen</span><span class="dots"></span><span class="val">Agentic AI for Industrial Operations</span></div>
+            </div>
+            <p class="method"><b>Method</b>AI-powered platform designed to solve complex operational challenges through advanced Agentic AI and Challenge Engineering.</p>
+            <a class="taste" href="case-studies/swarm.html">Full recipe →</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-top"><h3><a href="case-studies/spectrum.html">Spectrum</a></h3><span class="recipe-no">Recipe No. 03</span></div>
+        <div class="sub">a Fortune 100 classic, prepared in The Agency</div>
+        <div class="card-body">
+          <img src="assets/spectrum.svg" alt="Spectrum">
+          <div>
+            <div class="r-meta">
+              <div class="r-row"><span class="label">Role</span><span class="dots"></span><span class="val">Business Analyst Intern</span></div>
+              <div class="r-row"><span class="label">Season</span><span class="dots"></span><span class="val">Summer 2024</span></div>
+              <div class="r-row"><span class="label">Kitchen</span><span class="dots"></span><span class="val">Charter Communications</span></div>
+            </div>
+            <p class="method"><b>Method</b>A telecommunications Fortune 100 company, personally working within The Agency under the Service Experience Group.</p>
+            <a class="taste" href="case-studies/spectrum.html">Full recipe →</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-top"><h3><a href="case-studies/orangewood.html">Orangewood Labs</a></h3><span class="recipe-no">Recipe No. 04</span></div>
+        <div class="sub">robotic arms, Y-Combinator seasoned (W18)</div>
+        <div class="card-body">
+          <img src="assets/orangewood.svg" alt="Orangewood Labs">
+          <div>
+            <div class="r-meta">
+              <div class="r-row"><span class="label">Role</span><span class="dots"></span><span class="val">Business Strategy &amp; Analyst Intern</span></div>
+              <div class="r-row"><span class="label">Season</span><span class="dots"></span><span class="val">Summer 2023</span></div>
+              <div class="r-row"><span class="label">Kitchen</span><span class="dots"></span><span class="val">Y-Combinator W18 Startup</span></div>
+            </div>
+            <p class="method"><b>Method</b>Building AI-powered robotic arms that are safe, affordable and capable of coping with modern day manufacturing challenges.</p>
+            <a class="taste" href="case-studies/orangewood.html">Full recipe →</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-top"><h3><a href="case-studies/harvi.html">HaRVI Lab</a></h3><span class="recipe-no">Recipe No. 05</span></div>
+        <div class="sub">research folded in gently, by touch</div>
+        <div class="card-body">
+          <img src="assets/harvi.svg" alt="HaRVI Lab">
+          <div>
+            <div class="r-meta">
+              <div class="r-row"><span class="label">Role</span><span class="dots"></span><span class="val">Research Fellow</span></div>
+              <div class="r-row"><span class="label">Season</span><span class="dots"></span><span class="val">Fall 2022 – Spring 2023</span></div>
+              <div class="r-row"><span class="label">Kitchen</span><span class="dots"></span><span class="val">Haptics Robotics and Virtual Interaction Lab</span></div>
+            </div>
+            <p class="method"><b>Method</b>Exploring how humans interact with our world, robots, and technology through touch.</p>
+            <a class="taste" href="case-studies/harvi.html">Full recipe →</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-top"><h3><a href="case-studies/merklebot.html">MerkleBot</a></h3><span class="recipe-no">Recipe No. 06</span></div>
+        <div class="sub">an early starter, Industry 4.0 culture</div>
+        <div class="card-body">
+          <img src="assets/merklebot.svg" alt="MerkleBot">
+          <div>
+            <div class="r-meta">
+              <div class="r-row"><span class="label">Role</span><span class="dots"></span><span class="val">Research Intern</span></div>
+              <div class="r-row"><span class="label">Season</span><span class="dots"></span><span class="val">Summer 2020</span></div>
+              <div class="r-row"><span class="label">Kitchen</span><span class="dots"></span><span class="val">Industry 4.0 Startup</span></div>
+            </div>
+            <p class="method"><b>Method</b>Connecting robots to digital markets through Robots-as-a-Service (RaaS).</p>
+            <a class="taste" href="case-studies/merklebot.html">Full recipe →</a>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <section id="leadership">
+      <div class="course-head">
+        <div class="no">Course II</div>
+        <h2>Rises — Leadership</h2>
+        <div class="orn">✦</div>
+      </div>
+
+      <article class="card">
+        <div class="card-top"><h3><a href="case-studies/tedx.html">TEDx USC</a></h3><span class="recipe-no">Recipe No. 07</span></div>
+        <div class="sub">ideas, proofed on stage until doubled</div>
+        <div class="card-body">
+          <img src="assets/tedx.svg" alt="TEDx USC">
+          <div>
+            <div class="r-meta">
+              <div class="r-row"><span class="label">Role</span><span class="dots"></span><span class="val">Organizer</span></div>
+              <div class="r-row"><span class="label">Season</span><span class="dots"></span><span class="val">Fall 2024 – Spring 2026</span></div>
+              <div class="r-row"><span class="label">Kitchen</span><span class="dots"></span><span class="val">Speaker Event Student Organization</span></div>
+            </div>
+            <p class="method"><b>Method</b>TEDx USC is a signature university event that brings unique ideas from students, faculty and keynote speakers to the USC Trojan family and community beyond.</p>
+            <a class="taste" href="case-studies/tedx.html">Full recipe →</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-top"><h3><a href="case-studies/sparksc.html">Spark SC</a></h3><span class="recipe-no">Recipe No. 08</span></div>
+        <div class="sub">entrepreneurship, kneaded four years running</div>
+        <div class="card-body">
+          <img src="assets/sparksc.svg" alt="Spark SC">
+          <div>
+            <div class="r-meta">
+              <div class="r-row"><span class="label">Role</span><span class="dots"></span><span class="val">President &amp; Director</span></div>
+              <div class="r-row"><span class="label">Season</span><span class="dots"></span><span class="val">Fall 2021 – Spring 2025</span></div>
+              <div class="r-row"><span class="label">Kitchen</span><span class="dots"></span><span class="val">Entrepreneurship Student Organization</span></div>
+            </div>
+            <p class="method"><b>Method</b>Fostering a culture of innovation and expanding the definition of entrepreneurship to people of diverse backgrounds around USC and LA.</p>
+            <a class="taste" href="case-studies/sparksc.html">Full recipe →</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-top"><h3><a href="case-studies/acg.html">Avenues Consulting Group</a></h3><span class="recipe-no">Recipe No. 09</span></div>
+        <div class="sub">consulting, plated for every industry</div>
+        <div class="card-body">
+          <img src="assets/acg.svg" alt="Avenues Consulting Group">
+          <div>
+            <div class="r-meta">
+              <div class="r-row"><span class="label">Role</span><span class="dots"></span><span class="val">Project Manager &amp; Senior Advisor</span></div>
+              <div class="r-row"><span class="label">Season</span><span class="dots"></span><span class="val">Fall 2023 – Spring 2024</span></div>
+              <div class="r-row"><span class="label">Kitchen</span><span class="dots"></span><span class="val">Consulting Student Organization</span></div>
+            </div>
+            <p class="method"><b>Method</b>Consulting and project-based solutions for a wide range of industries.</p>
+            <a class="taste" href="case-studies/acg.html">Full recipe →</a>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <section id="projects">
+      <div class="course-head">
+        <div class="no">Course III</div>
+        <h2>Bakes — Projects</h2>
+        <div class="orn">✦</div>
+      </div>
+
+      <article class="card">
+        <div class="card-top"><h3><a href="case-studies/checkmyprivacy.html">CheckMyPrivacy</a></h3><span class="recipe-no">Recipe No. 10</span></div>
+        <div class="sub">terms of service, rendered digestible</div>
+        <div class="card-body">
+          <img src="assets/checkmyprivacy.svg" alt="CheckMyPrivacy">
+          <div>
+            <div class="r-meta">
+              <div class="r-row"><span class="label">Role</span><span class="dots"></span><span class="val">Backend Developer</span></div>
+              <div class="r-row"><span class="label">Season</span><span class="dots"></span><span class="val">Spring 2024</span></div>
+              <div class="r-row"><span class="label">Kitchen</span><span class="dots"></span><span class="val">TOS and Privacy Policy AI Checker</span></div>
+            </div>
+            <p class="method"><b>Method</b>Utilizing ChatGPT’s GPT-3.5 Turbo AI API to parse through the “Terms of Service” of online services and give a privacy score rating and highlight areas of note to users.</p>
+            <a class="taste" href="case-studies/checkmyprivacy.html">Full recipe →</a>&nbsp;&nbsp;
+            <a class="taste" href="https://alksandroy.github.io/CheckMyPrivacy/index.html" target="_blank" rel="noopener">Taste it here →</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-top"><h3><a href="case-studies/claires-place.html">Claire’s Place Foundation</a></h3><span class="recipe-no">Recipe No. 11</span></div>
+        <div class="sub">data analysis, made with care</div>
+        <div class="card-body">
+          <img src="assets/claires-place.svg" alt="Claire’s Place Foundation">
+          <div>
+            <div class="r-meta">
+              <div class="r-row"><span class="label">Role</span><span class="dots"></span><span class="val">Data Analyst</span></div>
+              <div class="r-row"><span class="label">Season</span><span class="dots"></span><span class="val">Fall 2022</span></div>
+              <div class="r-row"><span class="label">Kitchen</span><span class="dots"></span><span class="val">Foundation for Cystic Fibrosis Support</span></div>
+            </div>
+            <p class="method"><b>Method</b>A charity providing support to individuals, children and families affected by cystic fibrosis.</p>
+            <a class="taste" href="case-studies/claires-place.html">Full recipe →</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-top"><h3><a href="case-studies/startup-career-fair.html">Startup Career Fair</a></h3><span class="recipe-no">Recipe No. 12</span></div>
+        <div class="sub">startups and students, brought to temperature together</div>
+        <div class="card-body">
+          <img src="assets/startup-career-fair.svg" alt="Startup Career Fair">
+          <div>
+            <div class="r-meta">
+              <div class="r-row"><span class="label">Role</span><span class="dots"></span><span class="val">Committee Lead &amp; Advisor</span></div>
+              <div class="r-row"><span class="label">Season</span><span class="dots"></span><span class="val">2022</span></div>
+              <div class="r-row"><span class="label">Kitchen</span><span class="dots"></span><span class="val">A Spark SC Initiative</span></div>
+            </div>
+            <p class="method"><b>Method</b>An initiative aimed at bridging the gap between startups and the USC community.</p>
+            <a class="taste" href="case-studies/startup-career-fair.html">Full recipe →</a>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <div class="school">
+      <div class="no">Trained At</div>
+      <h2>University of Southern California</h2>
+      <p>M.S. Integrated Design, Business and Technology — Class of 2026</p>
+      <p>B.S. Computer Science and Business Administration — Class of 2026</p>
+      <p class="school-loc">Los Angeles, CA</p>
+    </div>
+
+  </div>
+
+  <footer>
+    <div class="closing">“Compliments to the chef?”</div>
+    <div class="links">
+      <a href="mailto:alex@alexwan.me">alex@alexwan.me</a>
+      <a href="https://alexwan.super.site/" target="_blank" rel="noopener">Writing</a>
+    </div>
+    <div class="fine">© <span id="year">2026</span> Alex Wan · Pittsburgh, PA · all recipes tested</div>
+  </footer>
+
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

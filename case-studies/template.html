@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <!-- ============================================================
+       RECIPE CASE STUDY TEMPLATE
+       To create a new case study:
+         1. Copy this file, rename it (e.g. spectrum.html)
+         2. Replace every [BRACKETED] placeholder
+         3. Delete any section you don't need
+         4. Link it from ../index.html:
+            <h3><a href="case-studies/yourfile.html">Org Name</a></h3>
+       ============================================================ -->
+  <title>[Project / Org Name] — full recipe — The Alex Wan Cookbook</title>
+  <meta name="description" content="[One-line summary of this case study]">
+  <link rel="icon" href="../assets/logo.svg" type="image/svg+xml">
+  <style>
+    :root {
+      --paper: #FBF6EC; --card: #FFFDF7; --ink: #3E2F23; --warm: #8B5E3C;
+      --muted: #9A8570; --rule: #D9CCB8;
+      --serif: Georgia, "Times New Roman", serif;
+      --sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--serif); background: var(--paper); color: var(--ink);
+      line-height: 1.65; -webkit-font-smoothing: antialiased;
+      cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 32 32'%3E%3Cg fill='none' stroke='%23161616' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 18 C23 8 12 -1 5 5 C-1 12 8 23 18 18 Z' fill='white'/%3E%3Cpath d='M18 18 C19 10 12 4 5 5 C4 12 10 19 18 18'/%3E%3Cpath d='M5 5 L18 18'/%3E%3Cline x1='20' y1='20' x2='28' y2='28' stroke-width='4.5'/%3E%3C/g%3E%3C/svg%3E") 5 5, auto;
+    }
+    body::before {
+      content: ""; position: fixed; inset: 0; z-index: 2; pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+      opacity: 0.10; mix-blend-mode: multiply;
+    }
+    a { color: var(--warm); }
+    a, a:hover, button {
+      cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 32 32'%3E%3Cg fill='none' stroke='%23161616' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 18 C23 8 12 -1 5 5 C-1 12 8 23 18 18 Z' fill='white'/%3E%3Cpath d='M18 18 C19 10 12 4 5 5 C4 12 10 19 18 18'/%3E%3Cpath d='M5 5 L18 18'/%3E%3Cline x1='20' y1='20' x2='28' y2='28' stroke-width='4.5'/%3E%3C/g%3E%3C/svg%3E") 5 5, pointer;
+    }
+    img { display: block; max-width: 100%; }
+    .wrap { max-width: 760px; margin: 0 auto; padding: 0 24px; }
+
+    .topline {
+      display: flex; justify-content: space-between; padding: 14px 24px;
+      border-bottom: 1px solid var(--rule);
+      font-family: var(--sans); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.2em;
+    }
+    .topline a { text-decoration: none; color: var(--ink); }
+    .topline a:hover { color: var(--warm); }
+
+    header { text-align: center; padding: 8vh 24px 4vh; }
+    header .kicker { font-family: var(--sans); font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.26em; color: var(--warm); margin-bottom: 14px; }
+    header h1 { font-size: clamp(2.2rem, 7vw, 3.6rem); letter-spacing: -0.01em; line-height: 1.1; }
+    header .deck { font-style: italic; color: var(--muted); margin-top: 10px; }
+    header .orn { color: var(--warm); letter-spacing: 0.5em; margin-top: 18px; }
+
+    /* Recipe card meta */
+    .meta-card {
+      background: var(--card); border: 1px solid var(--rule); border-radius: 4px;
+      padding: 26px 30px; margin: 4vh 0; position: relative;
+    }
+    .meta-card::before {
+      content: ""; position: absolute; inset: 7px;
+      border: 1px dashed var(--rule); border-radius: 2px; pointer-events: none;
+    }
+    .m-row { display: flex; align-items: baseline; font-size: 0.98rem; padding: 5px 0; }
+    .m-row .label { font-family: var(--sans); font-size: 0.66rem; text-transform: uppercase; letter-spacing: 0.16em; color: var(--warm); white-space: nowrap; }
+    .m-row .dots { flex: 1; border-bottom: 2px dotted var(--rule); margin: 0 10px; transform: translateY(-4px); }
+    .m-row .val { text-align: right; max-width: 62%; }
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-end; }
+    .chip {
+      border: 1px solid var(--rule); border-radius: 3px; padding: 1px 10px;
+      font-family: var(--sans); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--warm);
+    }
+
+    section { padding: 2.5vh 0; }
+    .sec-head {
+      font-family: var(--sans); font-size: 0.68rem; text-transform: uppercase;
+      letter-spacing: 0.24em; color: var(--warm); margin-bottom: 12px;
+      display: flex; align-items: center; gap: 14px;
+    }
+    .sec-head::after { content: ""; flex: 1; border-bottom: 1px solid var(--rule); }
+    section p { margin-bottom: 1em; max-width: 64ch; }
+    section ul { margin: 0 0 1em 1.4em; }
+    section li { margin-bottom: 0.4em; }
+
+    /* Placeholder blocks — delete the class once filled in */
+    .todo {
+      border: 1px dashed var(--muted); border-radius: 4px; padding: 14px 16px;
+      color: var(--muted); font-size: 0.92rem; font-style: italic; background: var(--card);
+    }
+    .todo::before { content: "To fill in — "; font-family: var(--sans); font-style: normal; font-size: 0.66rem; text-transform: uppercase; letter-spacing: 0.16em; color: var(--warm); }
+
+    figure { margin: 2vh 0; }
+    figure img { border: 1px solid var(--rule); border-radius: 4px; }
+    figcaption { color: var(--muted); font-size: 0.82rem; font-style: italic; margin-top: 6px; text-align: center; }
+
+    footer { border-top: 3px double var(--warm); margin-top: 6vh; padding: 5vh 24px; text-align: center; }
+    footer .links { display: flex; justify-content: center; gap: 30px; font-family: var(--sans); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.18em; }
+    footer .links a { text-decoration: none; border-bottom: 1px solid var(--warm); padding-bottom: 2px; }
+    footer .fine { margin-top: 28px; font-family: var(--sans); font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+
+    /* Mobile */
+    html { -webkit-text-size-adjust: 100%; }
+    body { overflow-wrap: break-word; }
+    .m-row .chips { max-width: 68%; }
+    @media (max-width: 600px) {
+      .topline { padding: 12px 16px; letter-spacing: 0.14em; }
+      .topline span { display: none; }
+      .wrap { padding: 0 16px; }
+      header { padding: 6vh 16px 3vh; }
+      .meta-card { padding: 22px 18px; }
+      .m-row .val, .m-row .chips { max-width: 66%; }
+      footer .links { flex-wrap: wrap; gap: 12px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="topline">
+    <a href="../index.html">← Back to the Cookbook</a>
+    <span>From the kitchen of Alex Wan</span>
+  </div>
+
+  <div class="wrap">
+    <header>
+      <div class="kicker">Full Recipe · No. [XX]</div>
+      <h1>[Project / Org Name]</h1>
+      <p class="deck">[one-line tasting note — what this was and why it mattered]</p>
+      <div class="orn">✦ ✦ ✦</div>
+    </header>
+
+    <div class="meta-card">
+      <div class="m-row"><span class="label">Role</span><span class="dots"></span><span class="val">[Your title]</span></div>
+      <div class="m-row"><span class="label">Season</span><span class="dots"></span><span class="val">[e.g. Summer 2025 · 12 weeks]</span></div>
+      <div class="m-row"><span class="label">Kitchen</span><span class="dots"></span><span class="val">[company / org descriptor]</span></div>
+      <div class="m-row"><span class="label">Cooked with</span><span class="dots"></span><span class="val">[solo / team size &amp; collaborators]</span></div>
+      <div class="m-row"><span class="label">Ingredients</span><span class="dots"></span><span class="chips"><span class="chip">[skill 1]</span><span class="chip">[skill 2]</span><span class="chip">[skill 3]</span></span></div>
+      <div class="m-row"><span class="label">Serve with</span><span class="dots"></span><span class="val"><a href="#">[live site / repo / deck — or delete this row]</a></span></div>
+    </div>
+
+    <section>
+      <div class="sec-head">The Story</div>
+      <div class="todo">2–3 sentences on the company/project and the situation when you arrived. What was the state of the kitchen? Why did this dish need making?</div>
+    </section>
+
+    <section>
+      <div class="sec-head">The Brief</div>
+      <div class="todo">The specific problem or question you owned. What made it hard? Constraints — time, data, tooling, stakeholders.</div>
+    </section>
+
+    <section>
+      <div class="sec-head">Method</div>
+      <div class="todo">What you actually did, step by step. Decisions you made and why. Good place for a numbered list — tools used, analyses run, things you built.</div>
+    </section>
+
+    <section>
+      <div class="sec-head">Yield</div>
+      <div class="todo">Outcomes with numbers where possible (time saved, revenue, accuracy, adoption). If results were qualitative, say what changed for the team or users.</div>
+    </section>
+
+    <section>
+      <div class="sec-head">Chef’s Notes</div>
+      <div class="todo">1–3 things you'd do differently or learned. Optional — delete if it feels forced.</div>
+    </section>
+
+    <!-- Optional: screenshot / artifact slot
+    <figure>
+      <img src="../assets/[image].png" alt="[describe the image]">
+      <figcaption>[Caption]</figcaption>
+    </figure>
+    -->
+  </div>
+
+  <footer>
+    <div class="links">
+      <a href="../index.html">Back to the Cookbook</a>
+      <a href="mailto:alex@alexwan.me">alex@alexwan.me</a>
+    </div>
+    <div class="fine">© <span id="year">2026</span> Alex Wan · Pittsburgh, PA · all recipes tested</div>
+  </footer>
+
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

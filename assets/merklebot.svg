@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-label="MerkleBot logo">
+  <rect width="400" height="400" rx="28" fill="#2E2A33"/>
+  <text x="200" y="218" font-family="Helvetica, Arial, sans-serif" font-size="140" font-weight="700" letter-spacing="-4" fill="#E9E5EE" text-anchor="middle">MB</text>
+  <text x="200" y="330" font-family="Helvetica, Arial, sans-serif" font-size="24" letter-spacing="3" fill="#E9E5EE" fill-opacity="0.55" text-anchor="middle">MERKLEBOT</text>
+</svg>
